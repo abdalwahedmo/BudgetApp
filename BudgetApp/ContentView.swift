@@ -1,24 +1,34 @@
-//
-//  ContentView.swift
-//  BudgetApp
-//
-//  Created by Abdalwahed Moshref on 13/08/2026.
-//
-
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView : View {
+    @State private var meal = ""
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        VStack(spacing:25){
+            
+            Text("وجبة اليوم 🍽️")
+                .font(.largeTitle)
+                .bold()
+            
+            TextField("اكتب وجبتك المفضلة ...", text: $meal)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal)
+            
+            Text("وجبتك المفضلة لليوم هي :\(meal)")
+                .font(.title2)
+                .foregroundColor(.indigo)
+            Button("مسح"){
+                meal = ""
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.blue)
+            
+            Spacer()
         }
-        .padding()
+        .padding(.top,50)
     }
 }
-
 #Preview {
     ContentView()
 }
