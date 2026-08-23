@@ -15,20 +15,25 @@ struct ContentView : View {
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
             
-            Text("وجبتك المفضلة لليوم هي :\(meal)")
-                .font(.title2)
-                .foregroundColor(.indigo)
-            Button("مسح"){
-                meal = ""
+            // 👈 أضفنا الشرط هنا: إذا لم تكن الخانة فارغة، اعرض النص والزر
+            if !meal.isEmpty {
+                Text("وجبتك المفضلة لليوم هي :\(meal)")
+                    .font(.title2)
+                    .foregroundColor(.indigo)
+                
+                Button("مسح"){
+                    meal = ""
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.blue)
             
             Spacer()
         }
         .padding(.top,50)
     }
 }
+
 #Preview {
     ContentView()
 }
