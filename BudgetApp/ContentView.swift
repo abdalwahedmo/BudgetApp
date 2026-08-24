@@ -1,32 +1,36 @@
 import SwiftUI
 
 struct ContentView : View {
-    @State private var country = ""
+    
+    @State private var wish = ""
     var body: some View {
         VStack(spacing : 25){
-            Text("الدولة المفضلة 🌍")
+            
+            Text("أمنية السفر ✈️")
                 .font(.largeTitle)
                 .bold()
             
-            TextField("ادخل دولتك المفضلة ...",text: $country)
+            TextField("اكتب المكان الذي تتمنى زيارته...",text: $wish)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
             
-            if !country .isEmpty {
-                Text("دولتك المفضلة هي : \(country)")
+            if !wish .isEmpty{
+                Text("تتمنى زيارة: \(wish)")
                     .font(.title2)
-                    .foregroundColor(.indigo)
+                    .foregroundColor(.blue)
                 
+                Text("عدد الحروف المكتوبة:\(wish.count)")
+                    .font(.caption)
+                    .foregroundStyle(wish.count > 10 ?.red : .gray)
                 Button("مسح"){
-                    country = ""
+                    wish = ""
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.green)
+                .tint(.red)
             }
             Spacer()
         }
         .padding(.top,50)
-        
     }
 }
 #Preview {
