@@ -1,39 +1,34 @@
 import SwiftUI
 
 struct ContentView : View {
-    @State private var meal = ""
-    
+    @State private var country = ""
     var body: some View {
-        
-        VStack(spacing:25){
-            
-            Text("وجبة اليوم 🍽️")
+        VStack(spacing : 25){
+            Text("الدولة المفضلة 🌍")
                 .font(.largeTitle)
                 .bold()
             
-            TextField("اكتب وجبتك المفضلة ...", text: $meal)
+            TextField("ادخل دولتك المفضلة ...",text: $country)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal)
             
-            // 👈 أضفنا الشرط هنا: إذا لم تكن الخانة فارغة، اعرض النص والزر
-            if !meal.isEmpty {
-                Text("وجبتك المفضلة لليوم هي :\(meal)")
+            if !country .isEmpty {
+                Text("دولتك المفضلة هي : \(country)")
                     .font(.title2)
                     .foregroundColor(.indigo)
                 
                 Button("مسح"){
-                    meal = ""
+                    country = ""
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.blue)
+                .tint(.green)
             }
-            
             Spacer()
         }
         .padding(.top,50)
+        
     }
 }
-
 #Preview {
     ContentView()
 }
