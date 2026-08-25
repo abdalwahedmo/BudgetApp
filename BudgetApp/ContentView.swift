@@ -2,35 +2,36 @@ import SwiftUI
 
 struct ContentView : View {
     
-    @State private var wish = ""
+    @State private var isPowerSaving = false
+    
     var body: some View {
-        VStack(spacing : 25){
+        
+        VStack (spacing : 25) {
             
-            Text("أمنية السفر ✈️")
+            Text ("بطارية الجهاز 🔋")
                 .font(.largeTitle)
                 .bold()
             
-            TextField("اكتب المكان الذي تتمنى زيارته...",text: $wish)
-                .textFieldStyle(.roundedBorder)
+            Toggle ("تفعيل وضع توفير الطاقة" , isOn: $isPowerSaving)
                 .padding(.horizontal)
             
-            if !wish .isEmpty{
-                Text("تتمنى زيارة: \(wish)")
-                    .font(.title2)
-                    .foregroundColor(.blue)
+            if isPowerSaving {
                 
-                Text("عدد الحروف المكتوبة:\(wish.count)")
-                    .font(.caption)
-                    .foregroundStyle(wish.count > 10 ?.red : .gray)
-                Button("مسح"){
-                    wish = ""
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
+                Text ("وضع توفير الطاقة مفعل ⚡️")
+                    .font(.title3)
+                    .foregroundColor(.yellow)
+                
+            } else {
+                
+                Text ("الوضع العادي 🔋")
+                    .font(.title3)
+                    .foregroundColor(.green)
+                
             }
             Spacer()
         }
         .padding(.top,50)
+        .preferredColorScheme(isPowerSaving ? .dark : .light)
     }
 }
 #Preview {
