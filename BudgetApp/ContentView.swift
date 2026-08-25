@@ -1,37 +1,27 @@
 import SwiftUI
 
 struct ContentView : View {
-    @State private var isSoundEnabled = true
-    @State private var selectedMode = "عادي"
-    let modes = ["هادئ", "عادي", "قوي"]
-    
+    @State private var isMaintenanceMode = false
     var body: some View {
-        VStack(spacing : 25){
-            Text("إعدادات الصوت 🔊")
+        VStack(spacing : 25) {
+            Text("حالة النظام ⚙️")
                 .font(.largeTitle)
                 .bold()
-            Toggle("تفعيل الصوت ",isOn: $isSoundEnabled)
+            
+            Toggle("تفعيل وضع الصيانة",isOn: $isMaintenanceMode)
                 .padding(.horizontal)
-            
-            if isSoundEnabled{
-                Picker("اختر النمط",selection: $selectedMode){
-                    ForEach(modes,id: \.self){ mode in
-                        Text(mode).tag(mode)
-                    }
-                    }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal)
-                    Text("النمط الحالي : \(selectedMode)")
-            
-            
-            }else {
-                Text("الصوت مكتوم حالياً 🔇")
-                    .foregroundColor(.red)
+            if isMaintenanceMode  {
+                Text("النظام حالياً في حالة الصيانة ⚠️")
+                    .foregroundColor(.orange)
+            } else {
+                Text("النظام يعمل بشكل طبيعي ✅")
+                    .foregroundColor(.green)
                 
             }
             Spacer()
         }
         .padding(.top,50)
+        
     }
 }
 #Preview {
