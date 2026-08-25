@@ -1,37 +1,37 @@
 import SwiftUI
 
 struct ContentView : View {
-    
-    @State private var isPowerSaving = false
+    @State private var isSoundEnabled = true
+    @State private var selectedMode = "عادي"
+    let modes = ["هادئ", "عادي", "قوي"]
     
     var body: some View {
-        
-        VStack (spacing : 25) {
-            
-            Text ("بطارية الجهاز 🔋")
+        VStack(spacing : 25){
+            Text("إعدادات الصوت 🔊")
                 .font(.largeTitle)
                 .bold()
-            
-            Toggle ("تفعيل وضع توفير الطاقة" , isOn: $isPowerSaving)
+            Toggle("تفعيل الصوت ",isOn: $isSoundEnabled)
                 .padding(.horizontal)
             
-            if isPowerSaving {
-                
-                Text ("وضع توفير الطاقة مفعل ⚡️")
-                    .font(.title3)
-                    .foregroundColor(.yellow)
-                
-            } else {
-                
-                Text ("الوضع العادي 🔋")
-                    .font(.title3)
-                    .foregroundColor(.green)
+            if isSoundEnabled{
+                Picker("اختر النمط",selection: $selectedMode){
+                    ForEach(modes,id: \.self){ mode in
+                        Text(mode).tag(mode)
+                    }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    Text("النمط الحالي : \(selectedMode)")
+            
+            
+            }else {
+                Text("الصوت مكتوم حالياً 🔇")
+                    .foregroundColor(.red)
                 
             }
             Spacer()
         }
         .padding(.top,50)
-        .preferredColorScheme(isPowerSaving ? .dark : .light)
     }
 }
 #Preview {
