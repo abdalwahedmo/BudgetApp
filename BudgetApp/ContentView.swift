@@ -1,39 +1,36 @@
 import SwiftUI
-
 struct ContentView : View {
+    @State private var isAlarmOn = true
+    @State private var alarmTone = "رادار"
+    @State private var volume : Double = 70.0
     
-    @State private var isPowerOn = true
-    @State private var pictureMode = "قياسي"
-    @State private var brightness : Double = 50.0
-    let modes = ["قياسي", "سينما", "ألعاب"]
+    let tones = ["رادار", "كلاسيك", "طبيعة"]
     var body: some View {
+        
         VStack(spacing : 25){
-            Text("إعدادات التلفاز 📺")
+            Text("إعدادات المنبه ⏰")
                 .font(.largeTitle)
                 .bold()
             
-            Toggle("تشغيل الشاشة",isOn: $isPowerOn)
+            Toggle("تفعيل المنبه",isOn: $isAlarmOn)
                 .padding(.horizontal)
             
-            Picker("نمط الصورة",selection: $pictureMode){
-                
-                ForEach(modes,id: \.self){ mode in
-                    Text(mode).tag(mode)
-                    
+            Picker("النغمة",selection: $alarmTone){
+                ForEach(tones,id: \.self){ ton in
+                    Text(ton).tag(ton)
                     
                 }
             }
             .pickerStyle(.segmented)
             .padding(.horizontal)
             
-            Slider(value:$brightness,in: 0...100)
+            Slider(value: $volume ,in: 0...100)
                 .padding(.horizontal)
             
-            Text("مستوى الاضادة : \(Int(brightness))")
-            Text("الطاقة: \(isPowerOn ? "يعمل 🟢" : "مغلق 🔴") | النمط: \(pictureMode)")
+            Text("مستوى الصوت : \(Int(volume))")
+            Text("الحالة: \(isAlarmOn ? "مفعل 🔔" : "معطل 🔕") | النغمة: \(alarmTone)")
+            
             Spacer()
-            
-            
         }
         .padding(.top,50)
         
