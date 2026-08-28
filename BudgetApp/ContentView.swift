@@ -1,43 +1,38 @@
 import SwiftUI
 
 struct ContentView : View {
-    @State private var isDarkMode = false
-    @State private var fontStyle = "عادي"
-    @State private var fontSize : Double = 16.0
-    let fonts = ["عادي", "عريض", "عنوان"]
+    @State private var isSoundOn = true
+    @State private var difficulty = "متوسط"
+    @State private var playersCount = 1.0
+    let levels = ["سهل", "متوسط", "صعب"]
     var body: some View {
         VStack(spacing : 25){
-            Text("إعدادات القراءة 📖")
+            Text("إعدادات اللعبة 🎮")
                 .font(.largeTitle)
                 .bold()
             
-            Toggle("الوضع الداكن",isOn: $isDarkMode)
+            Toggle("المؤثرات الصوتية",isOn: $isSoundOn)
                 .padding(.horizontal)
             
-            Picker("نوع الخط",selection: $fontStyle){
-                ForEach(fonts ,id: \.self){ font in
-                    Text(font).tag(font)
+            Picker("مستوى الصعوبة",selection: $difficulty){
+                ForEach(levels,id: \.self){ levle in
+                    Text(levle).tag(levle)
+                       
+                    
                     
                 }
             }
             .pickerStyle(.segmented)
             .padding(.horizontal)
             
-            Slider(value : $fontSize , in: 12...32)
+            Slider(value: $playersCount,in: 1...4)
                 .padding(.horizontal)
-            Text("حجم الخط المحدد : \(Int(fontSize))")
+            Text("عدد اللاعبين: \(Int(playersCount))")
             
-            Text("هذا النص لتجربة الإعدادات 📝")
-                .font(.system(size: fontSize)) // يتغير حجمه تلقائياً مع الـ Slider
-                .foregroundColor(isDarkMode ? .white : .black)
-                .padding()
-                .background(isDarkMode ? Color.black : Color.gray.opacity(0.1))
-                .cornerRadius(10)
-            
+            Text("الصوت: \(isSoundOn ? "مفعل 🔊" : "مكتوم 🔇") | المستوى: \(difficulty)")
+                .font(.subheadline)
+                .foregroundColor(.gray)
             Spacer()
-            
-            
-            
         }
         .padding(.top,50)
         
