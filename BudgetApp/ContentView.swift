@@ -1,23 +1,24 @@
 import SwiftUI
 
 struct ContentView : View {
-    @State private var isSoundOn = true
-    @State private var difficulty = "متوسط"
-    @State private var playersCount = 1.0
-    let levels = ["سهل", "متوسط", "صعب"]
+    
+    @State private var isPowerOn = true
+    @State private var pictureMode = "قياسي"
+    @State private var brightness : Double = 50.0
+    let modes = ["قياسي", "سينما", "ألعاب"]
     var body: some View {
         VStack(spacing : 25){
-            Text("إعدادات اللعبة 🎮")
+            Text("إعدادات التلفاز 📺")
                 .font(.largeTitle)
                 .bold()
             
-            Toggle("المؤثرات الصوتية",isOn: $isSoundOn)
+            Toggle("تشغيل الشاشة",isOn: $isPowerOn)
                 .padding(.horizontal)
             
-            Picker("مستوى الصعوبة",selection: $difficulty){
-                ForEach(levels,id: \.self){ levle in
-                    Text(levle).tag(levle)
-                       
+            Picker("نمط الصورة",selection: $pictureMode){
+                
+                ForEach(modes,id: \.self){ mode in
+                    Text(mode).tag(mode)
                     
                     
                 }
@@ -25,14 +26,14 @@ struct ContentView : View {
             .pickerStyle(.segmented)
             .padding(.horizontal)
             
-            Slider(value: $playersCount,in: 1...4)
+            Slider(value:$brightness,in: 0...100)
                 .padding(.horizontal)
-            Text("عدد اللاعبين: \(Int(playersCount))")
             
-            Text("الصوت: \(isSoundOn ? "مفعل 🔊" : "مكتوم 🔇") | المستوى: \(difficulty)")
-                .font(.subheadline)
-                .foregroundColor(.gray)
+            Text("مستوى الاضادة : \(Int(brightness))")
+            Text("الطاقة: \(isPowerOn ? "يعمل 🟢" : "مغلق 🔴") | النمط: \(pictureMode)")
             Spacer()
+            
+            
         }
         .padding(.top,50)
         
