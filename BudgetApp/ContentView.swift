@@ -1,38 +1,71 @@
 import SwiftUI
+
 struct ContentView : View {
-    @State private var isAlarmOn = true
-    @State private var alarmTone = "رادار"
-    @State private var volume : Double = 70.0
+    @State private var isVIP = false
+    @State private var selectedEvent = "عيد ميلاد"
+    @State private var eventDate = Date()
+    @State private var guestCount : Double = 10
+    @State private var cardColor : Color = .purple
     
-    let tones = ["رادار", "كلاسيك", "طبيعة"]
+    let events = ["عيد ميلاد", "زفاف", "تخرج"]
     var body: some View {
-        
-        VStack(spacing : 25){
-            Text("إعدادات المنبه ⏰")
-                .font(.largeTitle)
-                .bold()
-            
-            Toggle("تفعيل المنبه",isOn: $isAlarmOn)
-                .padding(.horizontal)
-            
-            Picker("النغمة",selection: $alarmTone){
-                ForEach(tones,id: \.self){ ton in
-                    Text(ton).tag(ton)
+        ZStack {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+            VStack(spacing : 20){
+                Text ("مُصمم الدعوات 🎈")
+                    .font(.title)
+                    .bold()
+                
+                VStack(alignment : .leading,spacing: 10){
+                    Text ("المناسبة  : \(selectedEvent)")
+                        .font(.headline)
+                    Text("نوع الدعوة: \(isVIP ? "دعوة خاصة VIP 🌟" : "دعوة عامة ✉️")")
+                        .font(.subheadline)
+                    Text ("عدد الضيوف : \(Int(guestCount)) شخص")
+                        .font(.subheadline)
                     
                 }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-            
-            Slider(value: $volume ,in: 0...100)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(cardColor)
+                .cornerRadius(15)
                 .padding(.horizontal)
-            
-            Text("مستوى الصوت : \(Int(volume))")
-            Text("الحالة: \(isAlarmOn ? "مفعل 🔔" : "معطل 🔕") | النغمة: \(alarmTone)")
-            
-            Spacer()
+                
+                VStack(spacing : 15){
+                    Toggle("دعوة خاصة VIP؟ ",isOn: $isVIP)
+                    Divider()
+                    
+                    Picker("نوع المناسبة",selection: $selectedEvent){
+                        ForEach(events ,id: \.self){ event in
+                            Text(event).tag(event)
+                                
+                            
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    Divider()
+                    
+                    DatePicker("تاريخ المناسبة",selection: $eventDate ,displayedComponents: .date)
+                    Divider()
+                    VStack(alignment : .leading){
+                        Text("عدد الضيوف: \(Int(guestCount))")
+                            .font(.subheadline)
+                        Slider(value: $guestCount, in: 5...100, step: 5)
+                    }
+                    Divider()
+                    ColorPicker("لون البطاقة", selection: $cardColor)
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(15)
+                .padding(.horizontal)
+                
+                Spacer()
+            }
+            .padding(.top,40)
         }
-        .padding(.top,50)
         
     }
 }
